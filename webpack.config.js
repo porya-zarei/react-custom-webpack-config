@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const isEnvProduction = process?.env?.NODE_ENV === "production" ?? false;
 const useTypeScript = true;
 
@@ -32,6 +32,7 @@ module.exports = {
                 use: [
                     "style-loader",
                     "css-loader",
+                    "postcss-loader",
                     {
                         loader: "sass-loader",
                         options: {
@@ -85,5 +86,8 @@ module.exports = {
                     : undefined,
             ),
         ),
+        new MiniCssExtractPlugin({
+            filename: "src/styles/global.scss",
+        }),
     ],
 };
