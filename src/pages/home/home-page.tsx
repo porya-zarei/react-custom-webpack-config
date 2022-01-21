@@ -9,7 +9,7 @@ const HomePage: FC<HomePageProps> = () => {
         <PageContainer minHeight="screen" display="flex">
             <div className="w-full flex flex-col items-center justify-center">
                 <h1 className="text-3xl font-bold">
-                    Hi everyone! My name is <span className="text-green-500">Porya</span>.
+                    Hi everyone! My name is <span className="text-green-500">Porya Zarei</span>.
                 </h1>
             </div>
         </PageContainer>

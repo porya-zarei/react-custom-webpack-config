@@ -1,15 +1,18 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
-const nodeExternals = require("webpack-node-externals");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const isEnvProduction = process?.env?.NODE_ENV === "production" ?? true;
+const useTypeScript = true;
 
 module.exports = {
-    mode: "development",
-    entry: "./server/main.ts",
-    target: "node",
-    externals: [nodeExternals()],
+    mode: "production",
+    entry: {
+        app: "./src/index.server.tsx",
+    },
     output: {
-        path: path.resolve("server-build"),
-        filename: "index.js",
+        path: path.resolve(__dirname, "dist"),
+        filename: "js/bundle.js",
+        publicPath: "/",
     },
     module: {
         rules: [
@@ -24,14 +27,15 @@ module.exports = {
                 },
             },
             {
-                test: /\.(ts|tsx)?$/,
-                use: "ts-loader",
-                exclude: /node_modules/,
-            },
-            {
                 test: /\.s[ac]ss$/i,
                 use: [
                     "style-loader",
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            esModule: false,
+                        },
+                    },
                     "css-loader",
                     "postcss-loader",
                     {
@@ -50,14 +54,49 @@ module.exports = {
                     },
                 ],
             },
+            {
+                test: /\.(ts|tsx)?$/,
+                use: "ts-loader",
+                exclude: /node_modules/,
+            },
         ],
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js", ".jsx"],
     },
+    devServer: {
+        hot: true,
+        port: 3000,
+        open: true,
+    },
     plugins: [
+        new HtmlWebpackPlugin(
+            Object.assign(
+                {},
+                {
+                    inject: true,
+                    template: path.resolve(__dirname, "public/index.html"),
+                },
+                isEnvProduction
+                    ? {
+                          minify: {
+                              removeComments: true,
+                              collapseWhitespace: true,
+                              removeRedundantAttributes: true,
+                              useShortDoctype: true,
+                              removeEmptyAttributes: true,
+                              removeStyleLinkTypeAttributes: true,
+                              keepClosingSlash: true,
+                              minifyJS: true,
+                              minifyCSS: true,
+                              minifyURLs: true,
+                          },
+                      }
+                    : undefined,
+            ),
+        ),
         new MiniCssExtractPlugin({
-            filename: "src/styles/global.scss",
+            filename: "css/styles.css",
         }),
     ],
 };

@@ -1,7 +1,8 @@
+import { FC } from "react";
 import {BrowserRouter} from "react-router-dom";
 import App from "./app";
 
-const clientAppRenderer = ():JSX.Element => {
+const ClientAppRenderer:FC = ()=> {
     return (
         <BrowserRouter>
             <App />
@@ -9,4 +10,4 @@ const clientAppRenderer = ():JSX.Element => {
     );
 };
 
-export default clientAppRenderer;
+export default ClientAppRenderer;

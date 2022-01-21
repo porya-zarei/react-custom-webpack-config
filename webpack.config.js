@@ -1,14 +1,14 @@
-const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const isEnvProduction = process?.env?.NODE_ENV === "production" ?? true;
+const isEnvProduction = false;
 const useTypeScript = true;
 
 module.exports = {
-    mode: "production",
+    mode: "development",
+    cache: false,
     entry: {
-        app: "./src/index.tsx",
+        app: "./src/index.client.tsx",
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -56,7 +56,7 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(ts|tsx)?$/,
+                test: /\.(ts|tsx|js|jsx)?$/,
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
@@ -97,7 +97,7 @@ module.exports = {
             ),
         ),
         new MiniCssExtractPlugin({
-            filename: "css/styles.css",
-        }),
+            filename:"css/styles.css",
+        })
     ],
 };
