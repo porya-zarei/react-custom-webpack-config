@@ -2,23 +2,23 @@ const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const isEnvProduction = process?.env?.NODE_ENV === "production" ?? false;
+const isEnvProduction = process?.env?.NODE_ENV === "production" ?? true;
 const useTypeScript = true;
 
 module.exports = {
-    mode: "development",
+    mode: "production",
     entry: {
         app: "./src/index.tsx",
     },
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "js/[name].[hash].js",
+        filename: "js/bundle.js",
         publicPath: "/",
     },
     module: {
         rules: [
             {
-                test: /\.?(js|jsx)$/,
+                test: /\.?(js|jsx|ts|tsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
@@ -31,6 +31,12 @@ module.exports = {
                 test: /\.s[ac]ss$/i,
                 use: [
                     "style-loader",
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            esModule: false,
+                        },
+                    },
                     "css-loader",
                     "postcss-loader",
                     {
@@ -43,7 +49,11 @@ module.exports = {
             },
             {
                 test: /\.(png|jp(e*)g|svg|gif)$/,
-                use: ["file-loader"],
+                use: [
+                    {
+                        loader: "file-loader",
+                    },
+                ],
             },
             {
                 test: /\.(ts|tsx)?$/,
@@ -53,7 +63,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: [".tsx", ".ts", ".js"],
+        extensions: [".tsx", ".ts", ".js", ".jsx"],
     },
     devServer: {
         hot: true,
@@ -87,7 +97,7 @@ module.exports = {
             ),
         ),
         new MiniCssExtractPlugin({
-            filename: "src/styles/global.scss",
+            filename: "css/styles.css",
         }),
     ],
 };

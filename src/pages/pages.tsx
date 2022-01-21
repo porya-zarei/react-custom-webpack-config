@@ -11,16 +11,14 @@ const Pages: FC<PagesProps> = () => {
     return (
         <MainContextProvider>
             <ViewContextProvider>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/admin" element={<h1>hi eadmin</h1>} />
-                        <Route path="/" element={<DefaultLayout />}>
-                            <Route path="" element={<HomePage />} />
-                            <Route path="/about-us" element={<AboutUsPage />} />
-                        </Route>
-                        <Route path="*" element={<h1>404</h1>} />
-                    </Routes>
-                </BrowserRouter>
+                <Routes>
+                    <Route path="/admin" element={<h1>hi eadmin</h1>} />
+                    <Route path="/" element={<DefaultLayout />}>
+                        <Route index element={<HomePage />} />
+                        <Route path="/about-us" element={<AboutUsPage />} />
+                    </Route>
+                    <Route path="*" element={<h1>404</h1>} />
+                </Routes>
             </ViewContextProvider>
         </MainContextProvider>
     );

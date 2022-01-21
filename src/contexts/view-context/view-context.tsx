@@ -21,11 +21,11 @@ interface ViewContextProviderProps {}
 const ViewContext: Context<IViewContext> = createContext({} as IViewContext);
 
 const ViewContextProvider: FC<ViewContextProviderProps> = ({children}) => {
-    const [isMobile, setIsMobile] = useState<boolean>(
-        window?.innerWidth < 768 ?? false,
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+    const [showNavbar, setShowNavbar] = useState<boolean>(
+        isMobile ? false : true,
     );
-    const [showNavbar, setShowNavbar] = useState<boolean>(isMobile?false:true);
-    
+
     const changeShowNavbar = useCallback(
         (value: SetStateAction<boolean>): void => {
             setShowNavbar(value);
@@ -50,7 +50,7 @@ const ViewContextProvider: FC<ViewContextProviderProps> = ({children}) => {
             changeShowNavbar,
             isMobile,
         }),
-        [showNavbar, isMobile,changeShowNavbar],
+        [showNavbar, isMobile, changeShowNavbar],
     );
     return (
         <ViewContext.Provider value={context}>{children}</ViewContext.Provider>

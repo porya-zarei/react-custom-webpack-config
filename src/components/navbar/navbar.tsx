@@ -1,6 +1,7 @@
 import {FC} from "react";
 import NavbarBtn from "./navbar-btn/navbar-btn";
 import NavbarList from "./navbar-list/navbar-list";
+import NavbarLogo from "./navbar-logo/navbar-logo";
 import SearchInput from "./search-input/search-input";
 
 interface NavbarProps {}
@@ -12,16 +13,12 @@ const Navbar: FC<NavbarProps> = () => {
                 <NavbarBtn />
             </div>
             <div className="h-full w-auto mr-8">
-                <img
-                    className="w-auto h-full"
-                    src="https://via.placeholder.com/120x50"
-                    alt="logo"
-                />
+                <NavbarLogo/>
             </div>
             <div className="flex justify-start items-center w-auto h-auto">
                 <NavbarList />
             </div>
-            <div className="center h-full w-auto">
+            <div className="center h-full w-auto ml-auto mr-6">
                 <SearchInput />
             </div>
         </nav>
