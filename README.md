@@ -11,3 +11,4 @@
 - [ ] [TailwindCSS](https://tailwindcss.com/)
 - [ ] [React Router](https://reacttraining.com/react-router/)
 - [ ] [Sass](https://sass-lang.com/)
+- [ ] [SSR]

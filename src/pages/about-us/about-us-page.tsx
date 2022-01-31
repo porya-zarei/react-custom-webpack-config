@@ -7,11 +7,7 @@ interface AboutUsPageProps {}
 const AboutUsPage: FC<AboutUsPageProps> = () => {
     return (
         <PageContainer minHeight="screen" display="flex">
-            <div className="w-full">
-                <br />
-                <br />
-                <br />
-                <br />
+            <div className="w-full center">
                 <h1 className="hover:text-red-500">About Us Page</h1>
                 <p className="text-gray-500">
                     HI everyone! My name is{" "}
